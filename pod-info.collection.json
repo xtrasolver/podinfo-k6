@@ -1,0 +1,180 @@
+{
+	"info": {
+		"_postman_id": "a45997bd-228e-41cc-ba54-d29df3d6c76e",
+		"name": "PodInfo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Basic",
+			"item": [
+				{
+					"name": "Get-Version",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "87f7d572-3292-470a-8fe7-f56320e55037",
+								"exec": [
+									"pm.test(\"Get-Version: Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/version",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"version"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get-Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0e3c6487-4994-4f81-978b-2312c5d66673",
+								"exec": [
+									"pm.test(\"Get-Token: Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Get-Token: Set token variable\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.globals.set(\"Token\", jsonData.token);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/token",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate-Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bb1f4bb7-d26c-4d8c-8bee-b0fbd507443c",
+								"exec": [
+									"pm.test(\"Validate-Token: Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/token/validate",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"token",
+								"validate"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Invasive",
+			"item": [
+				{
+					"name": "Store-Content",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "16a27819-b672-479c-98af-ab2af7b8fc57",
+								"exec": [
+									"pm.test(\"Store-Content: Status code is 202\", function () {\r",
+									"    pm.response.to.have.status(202);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"data\": \"Test content\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/store",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"store"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"variable": [
+		{
+			"id": "c135e9b8-49bb-4c65-ae12-2c535aa5a6bb",
+			"key": "Token",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

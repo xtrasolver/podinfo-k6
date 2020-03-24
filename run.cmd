@@ -1,0 +1,1 @@
+k6 run pod-info.k6.js
